@@ -9,7 +9,7 @@ export default class User extends BaseModel {
                     primaryKey: true,
                     autoIncrement: true,
                 },
-                nome: {
+                name: {
                     type: DataTypes.STRING,
                     allowNull: false,
 
@@ -23,12 +23,20 @@ export default class User extends BaseModel {
                 password: {
                     type: DataTypes.STRING,
                     allowNull: false,
+                },
+                is_deleted: {
+                    type: DataTypes.BOOLEAN,
+                    allowNull: false,
+                    defaultValue: false,
                 }
             },
             {
                 sequelize,
-                modelName: 'User',
-                timestamps: true, //criatedAt e updatedAt
+                modelName: 'user',
+                tableName: 'users',
+                timestamps: true, 
+                createdAt: 'created_at',
+                updatedAt: 'updated_at',
             }
         );
     }
