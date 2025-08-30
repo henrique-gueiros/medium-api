@@ -1,6 +1,7 @@
 import { User } from '../models/index.js';
 import bcryptjs from 'bcryptjs';
 import { pick } from 'lodash'
+import jwt from 'jsonwebtoken';
 
 export default class UserService {
     async createUser(user) {
@@ -35,7 +36,11 @@ export default class UserService {
             const senhaValida = await bcryptjs.compare(password, user.password);
             if (!senhaValida) throw { status: 401, message: 'Invalid credentials' };
 
-            return pick(user, ['id', 'name', 'email', 'created_at', 'updated_at']);
+            const payload = { id: user.id, email: user.email };
+            const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' });
+
+            return token;
+            
         } catch (error){
             throw error;
         }
