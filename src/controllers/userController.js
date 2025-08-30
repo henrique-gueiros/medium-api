@@ -17,4 +17,16 @@ export default class UserController extends BaseController{
             return this.errorHandler(error, req, res);
         }
     }
+
+    async login(req, res){
+        try{
+            const { email, password } = req.body;
+            const user = await this.userService.login(email, password);
+
+            return this.successHandler(user, res);
+
+        }catch (error){
+            return this.errorHandler(error, req, res);
+        }
+    }
 }

@@ -12,6 +12,7 @@ export default class Routes {
 		this.routes.get("/health", (req, res) => res.status(200).send("OK"));
 		//teste
 		this.routes.post("/users",(req, res) => this.UserController.createUser(req, res));
+		this.routes.post("/login",(req, res) => this.UserController.login(req, res));
 
 		return this.routes;
 	}
