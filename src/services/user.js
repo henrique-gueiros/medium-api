@@ -1,8 +1,9 @@
 import { User } from '../models/index.js';
 import bcryptjs from 'bcryptjs';
+import { pick } from 'lodash'
 
 export default class UserService {
-    static async createUser(user) {
+    async createUser(user) {
 
         const transaction = await User.sequelize.transaction();
 
@@ -11,12 +12,12 @@ export default class UserService {
             const newUser = await User.create(user, { transaction });
 
             await transaction.commit();
-            return newUser;
+            return pick(newUser, ['id', 'name', 'email', 'created_at', 'updated_at']);
 
         } catch (error) {
             if (transaction) transaction.rollback();
             throw error;
         }
 
-    }
+    } 
 }

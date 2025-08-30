@@ -11,7 +11,7 @@ module.exports = {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
-          alowNull: false,
+          allowNull: false,
         },
         name: {
           type: Sequelize.STRING,
