@@ -1,4 +1,4 @@
-import UserService from "../services/user";
+import { UserService } from "../services/index.js";
 import BaseController from "./base";
 
 export default class UserController extends BaseController{

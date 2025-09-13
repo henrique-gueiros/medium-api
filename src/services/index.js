@@ -1,3 +1,4 @@
-import User from './user.js';
+import UserService from './user.js';
+import PostService from './posts.js';
 
-export { User };
+export { UserService , PostService };
