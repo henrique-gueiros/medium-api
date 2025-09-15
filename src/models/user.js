@@ -34,10 +34,14 @@ export default class User extends BaseModel {
                 sequelize,
                 modelName: 'user',
                 tableName: 'users',
-                timestamps: true, 
+                timestamps: true,
                 createdAt: 'created_at',
                 updatedAt: 'updated_at',
             }
         );
+    }
+
+    static associate(models) {
+        this.hasMany(models.Post, { foreignKey: 'user_id', as: 'posts' });
     }
 }
