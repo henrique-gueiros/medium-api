@@ -40,6 +40,7 @@ class App {
 		this.app.use(routes.setup());
 		this.app.use((error, req, res, next) => {
 			if (error) {
+				console.log(error);
 				res.status(500).json({
 					status: "error",
 					code: 500,
