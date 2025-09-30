@@ -23,7 +23,30 @@ export default class PostService {
                 scopes.push({ name: 'withIsLiked', options: { user_id: filter.logged_user_id } });
             }
 
-            //continuar a partir daqui
+            promises.push(
+                Post.scope(scopes).findAll({
+                    ...Pagination.getQueryParams(),
+                    raw: false,
+                    where: { is_deleted: false },
+                    order: [['created_at', 'DESC']],
+                    attributes: ['id', 'user_id', 'title', 'text', 'total_likes', 'created_at'],
+                    include: [{ model: User, as: "user", attributes: ["email", "name"] }]
+                })
+            )
+
+            if (Pagination.getPage() === 1) {
+                promises.push(Post.scope(scopes).count({
+                        where: { is_deleted: false },
+                    })
+                );
+            }
+
+            const [posts, totalItems] = await Promise.all(promises);
+
+            return {
+                post,
+                ...Pagination.mount(totalItems),
+            }
 
         } catch (error) {
             throw error;
