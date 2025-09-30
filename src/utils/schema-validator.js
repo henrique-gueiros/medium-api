@@ -40,7 +40,7 @@ export default class SchemaValidator {
 
 			Object.keys(schemas).forEach(key => {
 				const schema = schemas[key];
-				const result = schema.cast(schema.validateSync(req[key]));
+				const result = schema.cast(schema.validateSync(req[key])); 
 
 				if (key === 'body') {
 					results.data = Object.assign(results.data, result);
